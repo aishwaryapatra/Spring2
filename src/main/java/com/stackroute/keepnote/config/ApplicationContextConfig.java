@@ -12,15 +12,13 @@ import org.hibernate.SessionFactory;
  * */import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
+
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.stackroute.keepnote.model.Note;
-
-
-
 
 import javax.sql.DataSource;
 
@@ -29,7 +27,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource("classpath:dbconfig.properties")
+
 @ComponentScan(basePackages = { "com.stackroute.keepnote.dao" })
 
 public class ApplicationContextConfig {
@@ -44,33 +42,25 @@ public class ApplicationContextConfig {
 	
 		
 		@Bean
-//		
-//			
-//			dataSource.setDriverClassName(env.getProperty("driverClassName"));
-//			dataSource.setUrl(env.getProperty("url"));
-//			dataSource.setUsername(env.getProperty("dbuser"));
-//			dataSource.setPassword(env.getProperty("password"));
-//
-//			
 		public DataSource getDatasource() {
 			BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		  dataSource.setUrl("jdbc:mysql://" + System.getenv("MYSQL_HOST") + ":3306/" +
-		  System.getenv("MYSQL_DATABASE")
-		  +"?verifyServerCertificate=false&useSSL=false&requireSSL=false");
-		 dataSource.setUsername(System.getenv("MYSQL_USER"));
-		 dataSource.setPassword(System.getenv("MYSQL_PASSWORD"));
-		 return dataSource;
+//			dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//			dataSource.setUrl("jdbc:mysql://localhost:3306/JDBCTable?verifyServerCertificate=false&useSSL=false&requireSSL=false");
+//			dataSource.setUsername("root");
+//			dataSource.setPassword("Root@123");
+			dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+			  dataSource.setUrl("jdbc:mysql://" + System.getenv("MYSQL_HOST") + ":3306/" +
+			  System.getenv("MYSQL_DATABASE")
+			  +"?verifyServerCertificate=false&useSSL=false&requireSSL=false");
+			  dataSource.setUsername(System.getenv("MYSQL_USER"));
+			  dataSource.setPassword(System.getenv("MYSQL_PASSWORD"));
+
+			return dataSource;
 	}
 
 	/*
 	 * Use this configuration while submitting solution in hobbes.
-	 * dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-	 * dataSource.setUrl("jdbc:mysql://" + System.getenv("MYSQL_HOST") + ":3306/" +
-	 * System.getenv("MYSQL_DATABASE")
-	 * +"?verifyServerCertificate=false&useSSL=false&requireSSL=false");
-	 * dataSource.setUsername(System.getenv("MYSQL_USER"));
-	 * dataSource.setPassword(System.getenv("MYSQL_PASSWORD"));
+	 * 
 	 */
 
 	/*
